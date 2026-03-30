@@ -1,0 +1,31 @@
+[package]
+name = "rusty-smb-scan"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+integration-tests = []
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+thiserror = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+csv = "1"
+tabled = "0.14"
+bitflags = "2"
+
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+pavao = "0.2"
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows-sys = { version = "0.48", features = [
+    "Win32_NetworkManagement_WNet",
+    "Win32_NetworkManagement_NetManagement",
+    "Win32_Foundation",
+] }
+
+[dev-dependencies]
+mockall = "0.12"
+pretty_assertions = "1"
